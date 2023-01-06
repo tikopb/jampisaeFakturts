@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     invoice_id: {
       type: DataTypes.INTEGER,
+      allowNull: false,
       references: {
         model: invoice,
         key: 'invoice_id'
@@ -30,11 +31,13 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       references: {
         model: business_partner,
+        allowNull: false,
         key: 'businesspartner_id'
       } 
     },
     createdby:{
       type: DataTypes.INTEGER,
+      allowNull: false,
       references: {
         model: user,
         key: 'user_id'

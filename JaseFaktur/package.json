@@ -9,7 +9,8 @@
     "tsc": "rm -rf build/ && tsc",
     "ts": "rm -rf build/ && tsc -w",
     "dev": "nodemon ./build/index.js",
-    "migrate": "sequelize-cli db:migrate "
+    "migrate": "sequelize-cli db:migrate ",
+    "migrate-undo": "sequelize-cli db:migrate "
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",

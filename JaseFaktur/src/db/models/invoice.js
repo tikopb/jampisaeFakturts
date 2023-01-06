@@ -28,6 +28,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     createdby:{
       type: DataTypes.INTEGER,
+      allowNull: false,
       references: {
         model: user,
         key: 'user_id'
@@ -35,6 +36,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     updatedby: {
       type: DataTypes.INTEGER,
+      allowNull: false,
       references: {
         model: user,
         key: 'user_id'
