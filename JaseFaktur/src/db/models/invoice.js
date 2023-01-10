@@ -42,7 +42,10 @@ module.exports = (sequelize, DataTypes) => {
         key: 'user_id'
       } 
     },
-    isactive: DataTypes.BOOLEAN,
+    isactive:{
+      type: DataTypes.BOOLEAN,
+      defaultValue: true
+    },
     fakturno: DataTypes.STRING,
     duedate: DataTypes.DATE,
     paymentdate: DataTypes.DATE,

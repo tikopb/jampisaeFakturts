@@ -1,17 +1,17 @@
 import { Router, Request, Response } from "express";
 import BaseRouters from "../DependenciesRoute/BaseRouter";
-//import {auth} from "../middlewares/AuthMiddleware";
 
 //controllers
-import bp  from "../../controllers/BusinessPartnerController";
+import bp  from "@/controllers/BusinessPartnerController";
+import { auth } from "@/middleware/AuthMiddleware";
 
 class BusinessPartnerRoute extends BaseRouters{
     public routes(): void {
-        this.router.get("/bp", bp.index);
-        this.router.post("/", bp.create);
-        this.router.get("/:id", bp.show);
-        this.router.put("/:id", bp.update);
-        this.router.delete("/:id", bp.delete);
+        this.router.get("/bp",auth, bp.index);
+        this.router.post("/", auth, bp.create);
+        this.router.get("/:id", auth, bp.show);
+        this.router.put("/:id", auth, bp.update);
+        this.router.delete("/:id", auth, bp.delete);
     }
 }
 

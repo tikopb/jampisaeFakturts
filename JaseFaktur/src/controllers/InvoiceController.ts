@@ -3,9 +3,9 @@ import ControllerInterface from "./DepedenciesController/ControllerInterface";
 
 const db  = require("@/db/models");
 
-class BusinessPartnerController implements ControllerInterface{
+class InvoiceControlller implements ControllerInterface{
     index = async (req: Request, res: Response): Promise<Response> => {
-        const data = await db.business_partner.findAll({}) 
+        const data = await db.invoice.findAll({}) 
         return res.status(200).send({
             data,
             message: ""
@@ -16,12 +16,14 @@ class BusinessPartnerController implements ControllerInterface{
         const UserParam = req.app.locals.credential.user;
 
         try {
-            let data = await db.business_partner.create({
-                value: param.value,
-                name: param.name,
-                description: param.description,
+            let data = await db.invoice.create({
+                businesspartner_id: param.invoice_id,
                 createdBy: UserParam.user_id,
                 updatedBy: UserParam.user_id,
+                fakturno: param.fakturno,
+                dueDate: param.dueDate,
+                paymentDate: param.paymentDate,
+                grandtotal: param.grandtotal
             })
             return res.status(200).send({
                 data,
@@ -44,9 +46,9 @@ class BusinessPartnerController implements ControllerInterface{
         }
     }
     show = async (req: Request, res: Response): Promise<Response> => {
-        const business_partner_id = req.params.id
-        const data = await db.business_partner.findByPk({
-            business_partner_id
+        const invoice_id = req.params.id
+        const data = await db.invoice.findByPk({
+            invoice_id
         }) 
         return res.status(200).send({
             data,
@@ -58,17 +60,18 @@ class BusinessPartnerController implements ControllerInterface{
         const UserParam = req.app.locals.credential.user;
 
         try {
-            let data = await db.business_partner.findByPk(req.params.id)
+            let data = await db.invoice.findByPk(req.params.id)
             data.set({
-                value: param.value,
-                name: param.name,
-                description: param.description,
                 updatedBy: UserParam.user_id,
+                fakturno: param.fakturno,
+                dueDate: param.dueDate,
+                paymentDate: param.paymentDate,
+                grandtotal: param.grandtotal
             })
             await data.save()
             return res.status(200).send({
                 data,
-                message: "data generated"
+                message: "data updated"
             })
         } catch (err: any) {
             if (err.name === 'SequelizeUniqueConstraintError') {
@@ -87,8 +90,8 @@ class BusinessPartnerController implements ControllerInterface{
         }
     }
     delete = async (req: Request, res: Response): Promise<Response> => {
-        const business_partner_id = req.params.id
-        let data = await db.business_partner.findByPk(business_partner_id);
+        const invoice_id = req.params.id
+        let data = await db.invoice.findByPk(invoice_id);
         try {
             await data.destroy();
             return res.status(200).json({
@@ -103,4 +106,10 @@ class BusinessPartnerController implements ControllerInterface{
     
 }
 
-export default new BusinessPartnerController();
+class utility {
+    countFakturNo = async() => {
+        // ambil nilai dari max document no faktur!
+    }
+}
+
+export default new InvoiceControlller();

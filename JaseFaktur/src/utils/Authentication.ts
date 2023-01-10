@@ -1,6 +1,8 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
+const db  = require("@/db/models");
+
 class Authentication {
     public static passwordHash = (password: string): Promise<string> => {
         return bcrypt.hash(password, 12);
@@ -11,10 +13,11 @@ class Authentication {
         return result;
     }
 
-    public static generateToken = (id: number, username: string, password: string): string => {
+    public static generateToken = async (id: number, username: string, password: string): Promise<string> => {
         const secretKey: string = process.env.JWT_SECRET_KEY || "secret";
+        const user = await db.user.findByPk(id)
 
-        const token: string = jwt.sign({ id, username, password}, secretKey);
+        const token: string = jwt.sign({user}, secretKey);
         return token;
     }
 }
