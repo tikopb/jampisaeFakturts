@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     businesspartner_id: {
       type: DataTypes.INTEGER,
       references: {
-        model: business_partner,
+        model: 'business_partner',
         key: 'businesspartner_id'
       } 
     },
@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: user,
+        model: 'user',
         key: 'user_id'
       } 
     },
@@ -38,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: user,
+        model: 'user',
         key: 'user_id'
       } 
     },

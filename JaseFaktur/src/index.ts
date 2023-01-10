@@ -6,6 +6,9 @@ import helmet from "helmet";
 import cors from "cors";
 import { config as dotenv} from "dotenv";
 
+//Routes
+import IndexApi from "./routes/indexApi";
+
 class App{
     public app: Application;
 
@@ -28,6 +31,8 @@ class App{
         this.app.route("/").get((req: Request, res: Response) => {
             res.send('hi welcome to the app read the documentation first!')
         })
+
+        this.app.use("/api",IndexApi);
     }
 }
 

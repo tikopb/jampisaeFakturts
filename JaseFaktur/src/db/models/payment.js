@@ -23,14 +23,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: invoice,
+        model: 'invoice',
         key: 'invoice_id'
       } 
     },
     businesspartner_id: {
       type: DataTypes.INTEGER,
       references: {
-        model: business_partner,
+        model: 'business_partner',
         allowNull: false,
         key: 'businesspartner_id'
       } 
@@ -39,7 +39,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: user,
+        model: 'user',
         key: 'user_id'
       } 
     },

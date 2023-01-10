@@ -10,8 +10,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      business_partner.belongsTo(models.user);
-      models.user.hasyMany(business_partner);
+      
     }
   }
   business_partner.init({
@@ -23,12 +22,15 @@ module.exports = (sequelize, DataTypes) => {
     value: DataTypes.STRING,
     name: DataTypes.STRING,
     descriptoin: DataTypes.STRING,
-    isactive: DataTypes.BOOLEAN,
+    isactive: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true
+    },
     createdby:{
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: user,
+        model: 'user',
         key: 'user_id'
       } 
     },
@@ -36,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: user,
+        model: 'user',
         key: 'user_id'
       } 
     },
