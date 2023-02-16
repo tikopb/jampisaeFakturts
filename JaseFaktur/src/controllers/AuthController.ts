@@ -2,15 +2,30 @@ import { Request, Response } from "express";
 import Authentication from "@/utils/Authentication";
 
 const db  = require("@/db/models");
-
 class AuthController {
     register = async (req: Request, res: Response): Promise<Response> => {
-        let { username, password } = req.body;
+        let { username, password, name, description } = req.body;
         const hashedPassword: string = await Authentication.passwordHash(password);
-
-        await db.user.create({ username, password: hashedPassword });
-
-        return res.send("registrasi sukses !!");
+       
+        try {
+            let data = await db.user.create({ username, password: hashedPassword, name, description});
+            return res.status(200).send({
+                data: data.username,
+                msg: "succsess"
+            });
+        } catch (err: any) {
+            if (err.name === 'SequelizeUniqueConstraintError') {
+                return res.status(403).send({ 
+                    status: 'error', 
+                    msg: `user with value ${username} already exists`
+                });
+            } else {
+                return res.status(500).send({ 
+                    status: 'error', 
+                    msg: "Something went wrong"
+                });
+            }
+        }
     }
 
     login = async (req: Request, res: Response): Promise<Response> => {
@@ -26,7 +41,7 @@ class AuthController {
 
         // generate token
         if (compare) {
-            let token = Authentication.generateToken(user.id, username, user.password);
+            let token = await Authentication.generateToken(user.id, username, user.password);
             return res.send({
                 token
             });

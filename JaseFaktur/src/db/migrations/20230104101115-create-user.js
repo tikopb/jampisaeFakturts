@@ -12,6 +12,9 @@ module.exports = {
       password: {
         type: Sequelize.STRING
       },
+      username: {
+        type: Sequelize.STRING
+      },
       name: {
         type: Sequelize.STRING
       },
@@ -29,9 +32,15 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
+    },{
+      uniqueKeys: {
+          actions_unique: {
+              fields: ['username']
+          }
+      }
     });
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('users');
   }
-};
+};  

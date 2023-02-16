@@ -10,7 +10,7 @@
     "ts": "rm -rf build/ && ttsc -w",
     "dev": "nodemon ./build/index.js",
     "migrate": "sequelize-cli db:migrate ",
-    "migrate-undo": "sequelize-cli db:migrate",
+    "migrate-undo-all": "sequelize-cli db:migrate:undo:all",
     "build": "tsc && tsc-alias",
     "build:watch": "tsc && (concurrently \"tsc -w\" \"tsc-alias -w\")"
   },

@@ -7,7 +7,7 @@ import { auth } from "@/middleware/AuthMiddleware";
 
 class BusinessPartnerRoute extends BaseRouters{
     public routes(): void {
-        this.router.get("/bp",auth, bp.index);
+        this.router.get("/",auth, bp.index);
         this.router.post("/", auth, bp.create);
         this.router.get("/:id", auth, bp.show);
         this.router.put("/:id", auth, bp.update);

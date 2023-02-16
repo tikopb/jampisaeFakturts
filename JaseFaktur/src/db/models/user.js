@@ -20,9 +20,18 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true
     },
     password: DataTypes.STRING,
-    name: DataTypes.STRING,
+    name: {
+      type: DataTypes.STRING
+    },
+    username: {
+      type: DataTypes.STRING,
+      unique: true
+    },
     description: DataTypes.STRING,
-    isactive: DataTypes.BOOLEAN
+    isactive: { 
+      type: DataTypes.BOOLEAN,
+      defaultValue: true
+    }
   }, {
     sequelize,
     modelName: 'user',

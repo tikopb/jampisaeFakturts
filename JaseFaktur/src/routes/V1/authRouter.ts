@@ -6,7 +6,7 @@ import {auth} from "../../middleware/AuthMiddleware";
 //controllers
 import authC from "@/controllers/AuthController";
 
-class UserRoutes extends BaseRouters{
+class AuthRoutes extends BaseRouters{
     public routes(): void {
         this.router.post("/register", authC.register);
         this.router.post("/login", authC.login);
@@ -14,4 +14,4 @@ class UserRoutes extends BaseRouters{
     }
 }
 
-export default new UserRoutes().router;
+export default new AuthRoutes().router;

@@ -5,7 +5,7 @@ import BaseRouters from "../DependenciesRoute/BaseRouter";
 import invoice from "@/controllers/InvoiceController";
 import { auth } from "@/middleware/AuthMiddleware";
 
-class BusinessPartnerRoute extends BaseRouters{
+class invoiceRoute extends BaseRouters{
     public routes(): void {
         this.router.get("/bp",auth, invoice.index);
         this.router.post("/", auth, invoice.create);
@@ -15,4 +15,4 @@ class BusinessPartnerRoute extends BaseRouters{
     }
 }
 
-export default new BusinessPartnerRoute().router;
+export default new invoiceRoute().router;
