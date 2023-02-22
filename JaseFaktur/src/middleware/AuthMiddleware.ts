@@ -19,6 +19,6 @@ export const auth = (req: Request, res: Response, next: NextFunction): any => {
 
         return res.send("token invalid");
     } catch(error) {
-        return res.send(error);
+        return res.status(401).send(error);
     }
 }

@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('business_partners', {
+    await queryInterface.createTable('business_partner', {
       businesspartner_id: {
         allowNull: false,
         autoIncrement: true,
@@ -15,7 +15,7 @@ module.exports = {
       name: {
         type: Sequelize.STRING
       },
-      descriptoin: {
+      description: {
         type: Sequelize.STRING
       },
       isactive: {
@@ -35,17 +35,44 @@ module.exports = {
       cnnominal: {
         type: Sequelize.INTEGER
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE
       }
     });
+    await queryInterface.addConstraint(
+      'business_partner',{
+        fields: ['createdby'],
+        type: 'foreign key',
+        name: 'userCr_bp_const',
+        references: { //Required field
+          table: 'user',
+          field: 'user_id'
+        },
+        onDelete: 'cascade',
+        onUpdate: 'cascade'
+      },
+    );
+    await queryInterface.addConstraint(
+      'business_partner',{
+        fields: ['updatedby'],
+        type: 'foreign key',
+        name: 'userUp_bp_const',
+        references: { //Required field
+          table: 'user',
+          field: 'user_id'
+        },
+        onDelete: 'cascade',
+        onUpdate: 'cascade'
+      },
+    );
+
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('business_partners');
+    await queryInterface.dropTable('business_partner');
   }
 };
