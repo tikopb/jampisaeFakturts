@@ -13,13 +13,29 @@ class Authentication {
         return result;
     }
 
-    public static generateToken = async (id: number, username: string, password: string): Promise<string> => {
+    public static generateToken = async (user_id: number, username: string, password: string): Promise<Object> => {
         const secretKey: string = process.env.JWT_SECRET_KEY || "secret";
-        const user = await db.user.findByPk(id)
+        const user = await db.user.findOne({
+            where:{
+                user_id //get id with user_id parameter
+            },
+            attributes: ['user_id', 'username']
+        })
 
-        const token: string = jwt.sign({user}, secretKey);
+        const accesstoken: string = jwt.sign({user}, secretKey,{
+            expiresIn: "10s",
+          });
+        const refreshToken = jwt.sign({user}, secretKey, {
+            expiresIn: "2d",
+        });
+
+        const token = {
+            accesstoken,
+            refreshToken
+        }
         return token;
     }
+
 }
 
 export default Authentication;

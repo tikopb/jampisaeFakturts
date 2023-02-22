@@ -52,6 +52,7 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'payment',
     underscored: true,
+    freezeTableName: true
   });
   return payment;
 };

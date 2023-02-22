@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     value: DataTypes.STRING,
     name: DataTypes.STRING,
-    descriptoin: DataTypes.STRING,
+    description: DataTypes.STRING,
     isactive: {
       type: DataTypes.BOOLEAN,
       defaultValue: true
@@ -48,6 +48,7 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'business_partner',
     underscored: true,
+    freezeTableName: true,
   });
   return business_partner;
 };

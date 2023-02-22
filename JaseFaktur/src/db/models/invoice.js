@@ -55,6 +55,7 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'invoice',
     underscored: true,
+    freezeTableName: true
   });
   return invoice;
 };

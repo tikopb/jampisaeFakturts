@@ -13,15 +13,15 @@ class BusinessPartnerController implements ControllerInterface{
     }
     create = async (req: Request, res: Response): Promise<Response> => {
         const param = req.body;
-        const UserParam = req.app.locals.credential.user;
-
+        const UserParam = await req.app.locals.credential.user;
+        console.log(param)
         try {
             let data = await db.business_partner.create({
                 value: param.value,
                 name: param.name,
                 description: param.description,
-                createdBy: UserParam.user_id,
-                updatedBy: UserParam.user_id,
+                createdby: UserParam.user_id,
+                updatedby: UserParam.user_id,
             })
             return res.status(200).send({
                 data,
@@ -38,16 +38,15 @@ class BusinessPartnerController implements ControllerInterface{
                 res.status(500)
                 return res.send({ 
                     status: 'error', 
-                    msg: "Something went wrong"
+                    msg: `Something went wrong ${err.message}`
                 });
             }
         }
     }
     show = async (req: Request, res: Response): Promise<Response> => {
         const business_partner_id = req.params.id
-        const data = await db.business_partner.findByPk({
-            business_partner_id
-        }) 
+       
+        const data = await db.business_partner.findByPk(business_partner_id) 
         return res.status(200).send({
             data,
             message: ""

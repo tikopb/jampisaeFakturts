@@ -15,4 +15,4 @@ class BusinessPartnerRoute extends BaseRouters{
     }
 }
 
-export default new BusinessPartnerRoute().router;
+export default new BusinessPartnerRoute().router; 

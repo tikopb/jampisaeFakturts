@@ -17,12 +17,12 @@ class AuthController {
             if (err.name === 'SequelizeUniqueConstraintError') {
                 return res.status(403).send({ 
                     status: 'error', 
-                    msg: `user with value ${username} already exists`
+                    msg: `username ${username} already exists`
                 });
             } else {
                 return res.status(500).send({ 
                     status: 'error', 
-                    msg: "Something went wrong"
+                    msg: `Something went wrong: ${err}`
                 });
             }
         }
@@ -32,16 +32,16 @@ class AuthController {
         // cari data user by username
         let { username, password } = req.body;
 
-        const user = await db.user.findOne({
+        const data = await db.user.findOne({
             where: { username }
         });
 
         // check password
-        let compare = await Authentication.passwordCompare(password, user.password);
+        let compare = await Authentication.passwordCompare(password, data.password);
 
         // generate token
         if (compare) {
-            let token = await Authentication.generateToken(user.id, username, user.password);
+            let token = await Authentication.generateToken(data.user_id, username, data.password);
             return res.send({
                 token
             });
@@ -51,7 +51,7 @@ class AuthController {
     }
 
     profile = (req: Request, res: Response): Response => {
-        return res.send(req.app.locals.credential);
+        return res.send(req.app.locals.credential.user);
     }
 }
 

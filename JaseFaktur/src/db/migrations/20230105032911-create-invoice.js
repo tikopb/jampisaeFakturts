@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('invoices', {
+    await queryInterface.createTable('invoice', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -39,17 +39,43 @@ module.exports = {
       grandtotal: {
         type: Sequelize.INTEGER
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE
       }
     });
+     await queryInterface.addConstraint(
+      'invoice',{
+        fields: ['createdby'],
+        type: 'foreign key',
+        name: 'userCr_bp_const',
+        references: { //Required field
+          table: 'user',
+          field: 'user_id'
+        },
+        onDelete: 'cascade',
+        onUpdate: 'cascade'
+      },
+    );
+    await queryInterface.addConstraint(
+      'invoice',{
+        fields: ['updatedby'],
+        type: 'foreign key',
+        name: 'userUp_bp_const',
+        references: { //Required field
+          table: 'user',
+          field: 'user_id'
+        },
+        onDelete: 'cascade',
+        onUpdate: 'cascade'
+      },
+    );
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('invoices');
+    await queryInterface.dropTable('invoice');
   }
 };
