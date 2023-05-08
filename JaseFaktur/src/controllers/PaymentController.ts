@@ -18,7 +18,7 @@ class PaymentController implements ControllerInterface{
         try {
             let data = await db.payment.create({
                 invoice_id: param.invoice_id,
-                businesspartner_id: param.invoice_id,
+                business_partner_id: param.invoice_id,
                 createdBy: UserParam.user_id,
                 updatedBy: UserParam.user_id,
                 paymentDate: param.paymentDate,

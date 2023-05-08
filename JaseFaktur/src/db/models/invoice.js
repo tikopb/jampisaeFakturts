@@ -19,11 +19,11 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true,
       primaryKey: true
     },
-    businesspartner_id: {
+    business_partner_id: {
       type: DataTypes.INTEGER,
       references: {
         model: 'business_partner',
-        key: 'businesspartner_id'
+        key: 'business_partner_id'
       } 
     },
     createdby:{

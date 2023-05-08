@@ -27,12 +27,12 @@ module.exports = (sequelize, DataTypes) => {
         key: 'invoice_id'
       } 
     },
-    businesspartner_id: {
+    business_partner_id: {
       type: DataTypes.INTEGER,
       references: {
         model: 'business_partner',
         allowNull: false,
-        key: 'businesspartner_id'
+        key: 'business_partner_id'
       } 
     },
     createdby:{

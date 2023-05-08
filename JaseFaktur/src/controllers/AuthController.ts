@@ -41,11 +41,11 @@ class AuthController {
 
         // generate token
         if (compare) {
-            let token = await Authentication.generateToken(data.user_id, username, data.password);
+            let loginData = await Authentication.generateToken(data.user_id, username, data.password);          
             return res.send({
-                token
+                loginData
             });
-        }
+        } 
 
         return res.send("auth failed");
     }

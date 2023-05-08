@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   business_partner.init({
-    businesspartner_id: {
+    business_partner_id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true

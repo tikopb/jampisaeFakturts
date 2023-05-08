@@ -22,10 +22,15 @@ class Authentication {
             attributes: ['user_id', 'username']
         })
 
-        const accesstoken: string = jwt.sign({user}, secretKey,{
+        const payload = {
+            id: user.user_id,
+            username: user.username,
+        }
+
+        const accesstoken: string = jwt.sign({payload}, secretKey,{
             expiresIn: "10s",
           });
-        const refreshToken = jwt.sign({user}, secretKey, {
+        const refreshToken = jwt.sign({payload}, secretKey, {
             expiresIn: "2d",
         });
 
@@ -33,7 +38,13 @@ class Authentication {
             accesstoken,
             refreshToken
         }
-        return token;
+
+        const returnValue ={
+            payload,
+            token
+        }
+
+        return returnValue;
     }
 
 }

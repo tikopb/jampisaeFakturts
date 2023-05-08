@@ -15,7 +15,7 @@ module.exports = {
       invoice_id: {
         type: Sequelize.INTEGER
       },
-      businesspartner_id: {
+      business_partner_id: {
         type: Sequelize.INTEGER
       },
       createdby: {

@@ -17,7 +17,7 @@ class InvoiceControlller implements ControllerInterface{
 
         try {
             let data = await db.invoice.create({
-                businesspartner_id: param.invoice_id,
+                business_partner_id: param.invoice_id,
                 createdBy: UserParam.user_id,
                 updatedBy: UserParam.user_id,
                 fakturno: param.fakturno,
