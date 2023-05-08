@@ -1,14 +1,20 @@
 import { Request, Response } from "express";
 import ControllerInterface from "./DepedenciesController/ControllerInterface";
-
+import Pagination from "@/middleware/pagination/Pagination";
 const db  = require("@/db/models");
 
 class BusinessPartnerController implements ControllerInterface{
     index = async (req: Request, res: Response): Promise<Response> => {
-        const data = await db.business_partner.findAll({}) 
+        const pagination = new Pagination(req); //class decalare
+        const metadata = await pagination.PaginationGet(req,db.business_partner.tableName);
+        const whereMap = await pagination.GetWhereMapOrm(req); 
+        const data = await db.business_partner.findAll({
+
+        }) 
         return res.status(200).send({
             data,
-            message: ""
+            message: "Get Succsess",
+            metadata
         })
     }
     create = async (req: Request, res: Response): Promise<Response> => {

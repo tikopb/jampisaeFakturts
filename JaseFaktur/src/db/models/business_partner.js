@@ -47,6 +47,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'business_partner',
+    tableName: 'business_partner',
     underscored: true,
     freezeTableName: true,
   });
